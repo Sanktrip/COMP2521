@@ -17,6 +17,19 @@ int sumList(struct node *list) {
     return sum;
 }
 
+int fn(struct node *list) {
+    if (list == NULL) return 0;
+    int ans = 1;
+    for (struct node *curr = list; curr != NULL; curr = curr->next) {
+        if (list->value < curr->value) {
+            ans = max(ans, 1 + fn(curr));
+        } else {
+            ans = max(ans, fn(curr));
+        }
+    }
+return ans;
+}
+
 void printList(struct node *head) {
     struct node *temp = head;
     while (temp) {
@@ -51,5 +64,5 @@ int main (int argc, char *argv[]) {
         head = addNode(head, atoi(argv[i]));
     }
     printList(head);
-    printf("The sum of the list is: %d\n", sumList(head));
+    printf("The list is: %d\n", fn(head));
 }
